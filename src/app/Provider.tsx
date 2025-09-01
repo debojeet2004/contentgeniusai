@@ -4,7 +4,7 @@ import React from "react";
 
 function AppProvider({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
       {children}
       <Toaster richColors position="top-right" duration={1500} />
     </ThemeProvider>
