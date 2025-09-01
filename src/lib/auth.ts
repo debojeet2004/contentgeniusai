@@ -28,7 +28,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true, 
     autoSignIn: false,
-    requireEmailVerification: true,
+    requireEmailVerification: false,
     resetPasswordTokenExpiresIn: 1000 * 60 * 60 * 24, // 1 day
     sendResetPassword: async ({user, url}) => {
       await sendResetPasswordEmail({
@@ -59,5 +59,6 @@ export const auth = betterAuth({
   },
   trustedOrigins: [
     'http://localhost:3000',
+    'https://contentgeniusai-one.vercel.app',
   ],
 });
