@@ -17,6 +17,8 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import { useSession } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const data = {
   teams: [
@@ -45,13 +47,21 @@ const data = {
   ],
 };
 
-export type UserType = {
-  name: string;
-  email: string;
-  image?: string;
-}
 
-export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sidebar> & { user: UserType }) {
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const session = useSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  const user = {
+    name: session.data?.user?.name as string,
+    email: session.data?.user?.email as string,
+    image: session.data?.user?.image as string,
+  };
+  
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>

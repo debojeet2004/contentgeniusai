@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import Link from "next/link";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 
