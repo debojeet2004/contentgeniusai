@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { accounts, sessions, user, verificationTokens } from "@/db/schema";
+import { Orgschema, UserSchema } from "@/db/schema";
 import { sendEmail, sendResetPasswordEmail } from "@/email/sendEmail";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -9,7 +9,7 @@ import { organization } from "better-auth/plugins"
 
  
 export const auth = betterAuth({
-  // appName: 'Sociofy', 
+  appName: 'ContentGeniousAI', 
   plugins: [
     nextCookies(),
     organization(),
@@ -41,10 +41,14 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
-      user: user,
-      account: accounts,
-      session: sessions,
-      verification: verificationTokens,
+      user: UserSchema.user,
+      account: UserSchema.accounts,
+      session: UserSchema.sessions,
+      verification: UserSchema.verificationTokens,
+      member: Orgschema.member,
+      organization: Orgschema.organization,
+      invitation: Orgschema.invitation,
+
     },
   }), 
   socialProviders: {

@@ -1,16 +1,10 @@
 "use client";
 
 import * as React from "react";
-import {
-  AudioWaveform,
-  Command,
-  FileTextIcon,
-  GalleryVerticalEnd,
-} from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
+import { BrandSwitcher } from "@/app/(dashboard)/_components/brand-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -21,29 +15,12 @@ import { useSession } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 
 const data = {
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   Platform: [
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: FileTextIcon,
-    },
+    // {
+    //   title: "Settings",
+    //   url: "/settings",
+    //   icon: FileTextIcon,
+    // },
   ],
 };
 
@@ -65,7 +42,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <BrandSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.Platform} itemsCategory="Platform" type="normal" />

@@ -43,6 +43,7 @@ export const sessions = pgTable('session', {
   token: text('token').notNull(),
   ipAddress: text('ip_address'),
   userAgent: text('user_agent'),
+  activeOrganizationId: text('active_organization_id'),
 
   expiresAt: timestamp('expires_at').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
@@ -59,3 +60,5 @@ export const verificationTokens = pgTable('verification_token', {
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 });
+
+export const UserSchema = { user, accounts, sessions, verificationTokens };

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { AppSidebar } from "@/app/(dashboard)/_components/app-sidebar";
+import { AppSidebar } from "@/app/(dashboard)/_components/appSidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AuthCheck } from "./authCheck";
 

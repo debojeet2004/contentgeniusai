@@ -1,33 +1,47 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { user } from "./user";
+
+export const industryTypes = pgEnum('industry_type', ['technology', 'healthcare', 'finance', 'education', 'entertainment', 'other']);
+export const targetAudienceTypes = pgEnum('target_audience_type', ['business', 'consumer', 'general', 'student']);
+export const voiceToneTypes = pgEnum('voice_tone_type', ['formal', 'informal', 'casual', 'consise']);
 
 export const organization = pgTable("organization", {
     id: text('id').primaryKey(),
     name: text('name').notNull(),
-    slug: text('slug').unique(),
+    slug: text('slug').unique().notNull(),
     logo: text('logo'),
-    createdAt: timestamp('created_at').notNull(),
-    metadata: text('metadata')
+
+    description: text('description'),
+    brandmission: text('brandmission').array(),
+    industry: industryTypes('industry').array(),
+    targetaudience: targetAudienceTypes('targetaudience').array(),
+    voicetone: voiceToneTypes('voicetone').array(),
+    uniqsellingpoints: text('uniqsellingpoints').array(),
+    competitor: text('competitor').array(),
+
+
+    metadata: text('metadata'),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
 });
 
-export const organizationRelations = relations(organization, ({ many }) => ({
-    members: many(member)
-}));
-
-export const role = pgEnum("role", ["member", "admin", "owner"]);
 
 
-export type Role = (typeof role.enumValues)[number];
+export const organizationRole= pgEnum('organization_role', ['owner','admin', 'member']);
 
 
 export const member = pgTable("member", {
     id: text('id').primaryKey(),
     organizationId: text('organization_id').notNull().references(() => organization.id, { onDelete: 'cascade' }),
     userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
-    role: role('role').default("member").notNull(),
-    createdAt: timestamp('created_at').notNull()
+    role: organizationRole('role').notNull().default('member'),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
+
+export const organizationRelations = relations(organization, ({ many }) => ({
+    members: many(member)
+}));
 
 export const memberRelations = relations(member, ({ one }) => ({
     organization: one(organization, {
@@ -40,25 +54,21 @@ export const memberRelations = relations(member, ({ one }) => ({
     })
 }));
 
-// These two invitation table definitions are similar but have some key differences:
-// 1. First uses varchar, second uses text for column types
-// 2. Second adds foreign key references to organization and user tables
-// 3. Second has default "pending" status while first requires status
-// 4. First has additional teamId column
-// 5. First requires role to be notNull, second makes it optional
-// 6. Second adds onDelete cascade behavior
+
+
+export const invitationStatus = pgEnum('invitation_status', ['pending', 'accepted', 'rejected']);
+
 
 export const invitation = pgTable("invitation", {
     id: text('id').primaryKey(),
-    organizationId: text('organization_id').notNull().references(() => organization.id, { onDelete: 'cascade' }),
     email: text('email').notNull(),
-    role: text('role'),
-    status: text('status').default("pending").notNull(),
-    inviterId: text('inviter_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
-    
+    inviterId: text('inviter_id').notNull().references(() => member.id, { onDelete: 'cascade' }),
+    organizationId: text('organization_id').notNull().references(() => organization.id, { onDelete: 'cascade' }),
+    role: organizationRole('role').notNull(),
+    status: invitationStatus('status').notNull(),
     expiresAt: timestamp('expires_at').notNull(),
 });
-export const orgsession = pgTable('session', {
-  activeOrganizationId: varchar('active_organization_id'),
-});
 
+
+export const Orgschema = { organization, member, invitation, organizationRelations, memberRelations };
+export const OrgRelations = { organizationRelations, memberRelations };
