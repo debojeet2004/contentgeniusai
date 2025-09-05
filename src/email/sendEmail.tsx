@@ -12,7 +12,7 @@ interface SendEmailProps {
 }
 
 export const sendEmail = async ({ subject, url, user }: SendEmailProps) => {
-  console.log('data:' , subject, url, user);
+  // console.log('data:' , subject, url, user);
   await resend.emails.send({
     from: "onboarding@resend.dev",
     // to: user.email,

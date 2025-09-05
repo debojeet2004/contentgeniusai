@@ -9,7 +9,7 @@ export default async function ResetPasswordPage({
   searchParams: Promise<{ token?: string }>;
 }) {
   const { token } = await searchParams;
-  console.log(token);
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="relative flex flex-col items-center justify-center p-6 md:p-10">

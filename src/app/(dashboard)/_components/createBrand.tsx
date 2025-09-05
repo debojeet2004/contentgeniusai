@@ -75,8 +75,6 @@ export default function CreateBrand({ variant = "default" }: CreateBrandProps) {
     setIsCreating(true);
     try {
       const slug = generateSlug(data.orgName);
-      console.log("org Name:", data.orgName, "slug:", slug);
-
       const { error } = await authClient.organization.create({
         name: data.orgName as string,
         slug: slug as string,

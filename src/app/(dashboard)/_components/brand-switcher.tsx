@@ -107,10 +107,6 @@ export function BrandSwitcher() {
   const { data: organizations, isPending } = authClient.useListOrganizations();
   const { data: sessionActiveOrg, isPending: isSessionLoading } = authClient.useActiveOrganization();
 
-
-  console.log('organizations',organizations)
-  console.log('sessionActiveOrg',sessionActiveOrg)
-
   // Handle active brand updates
   useEffect(() => {
     if (organizations === undefined || isSessionLoading) return;
