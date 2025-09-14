@@ -72,9 +72,7 @@ export function NavMain({
                   )}
                   // data-umami-event={`dashboard-${item.title}-button`}
                 >
-                  <Link href={{
-                    pathname: item.url
-                  }}>
+                  <Link href={item.url}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                   </Link>
@@ -123,9 +121,7 @@ export function NavMain({
                           asChild
                           // data-umami-event={`dashboard-${item.title}-${subItem.title}-button`}
                         >
-                          <Link href={{
-                            pathname: subItem.url
-                          }}>
+                          <Link href={subItem.url}>
                             <span>{subItem.title}</span>
                           </Link>
                         </SidebarMenuSubButton>

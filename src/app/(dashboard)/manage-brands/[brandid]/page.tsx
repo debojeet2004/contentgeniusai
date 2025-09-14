@@ -17,9 +17,9 @@ export default async function Page({
 
   const currentTab = searchParams.tab;
   const BreadcrumbItems = [
-    { name: "Dashboard", href: { pathname: "/dashboard" } },
-    { name: "Manage Brands", href: { pathname: "/manage-brands" } },
-    { name: `${brandName}`, href: { pathname: `` } },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Manage Brands", href: "/manage-brands" },
+    { name: `${brandName}`, href: '' },
   ];
 
   const { isBrandPresent, data } = await checkBrand(brandId!);

@@ -13,10 +13,7 @@ import Link from 'next/link';
 interface BreadcrumbHelperProps {
   breadcrumbItems: {
     name: string;
-    href: {
-      pathname: string;
-      query?: { [key: string]: string | string[] | undefined };
-    };
+    href: string;
   }[],
   triggerNeeded?: boolean;
 }

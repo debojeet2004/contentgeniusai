@@ -13,8 +13,8 @@ export default function BrandsPage() {
 
   // console.log("organizations form manage-brand Page.tsx :",organizations)
   const BreadcrumbItems = [
-    { name: "Dashboard", href: { pathname: "/dashboard" } },
-    { name: "Manage Brands", href: { pathname: "/manage-brands" } },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Manage Brands", href: "/manage-brands" },
   ];
 
   return (
