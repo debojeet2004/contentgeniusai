@@ -5,7 +5,9 @@ function page() {
   const BreadcrumbItems = [
     {
       name: "Dashboard",
-      href: "/dashboard",
+      href: {
+        pathname: "/dashboard"
+      },
     },
   ];
   return (

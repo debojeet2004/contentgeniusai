@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { signOut } from '@/lib/auth-client'
@@ -8,7 +8,6 @@ import { signOut } from '@/lib/auth-client'
 
 export default function SignoutButton() {
 
-  const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSignOut = async () => {
@@ -18,7 +17,7 @@ export default function SignoutButton() {
         fetchOptions: {
           onSuccess: () => {
             toast.success('Successfully signed out!');
-            router.push('/login');
+            redirect('/login');
           },
         },
       });

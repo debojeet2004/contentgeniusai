@@ -1,10 +1,10 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { user } from "./user";
 
-export const industryTypes = pgEnum('industry_type', ['technology', 'healthcare', 'finance', 'education', 'entertainment', 'other']);
-export const targetAudienceTypes = pgEnum('target_audience_type', ['business', 'consumer', 'general', 'student']);
-export const voiceToneTypes = pgEnum('voice_tone_type', ['formal', 'informal', 'casual', 'consise']);
+export const industryTypes = pgEnum('industry_type', ['technology', 'healthcare', 'finance', 'education', 'entertainment', 'e-commerce', 'creative', 'food_beverage', 'real_estate', 'non_profit', 'marketing_advertising', 'fitness_wellness', 'travel_hospitality', 'legal']);
+export const targetAudienceTypes = pgEnum('target_audience_type', ['general', 'student', 'b2b', 'b2c', 'freelancer_creator']);
+export const voiceToneTypes = pgEnum('voice_tone_type', ['formal', 'casual', 'concise', 'elaborative', 'playful', 'empathetic', 'inspiring', 'sarcastic']);
 
 export const organization = pgTable("organization", {
     id: text('id').primaryKey(),
@@ -19,16 +19,14 @@ export const organization = pgTable("organization", {
     voicetone: voiceToneTypes('voicetone').array(),
     uniqsellingpoints: text('uniqsellingpoints').array(),
     competitor: text('competitor').array(),
+    brandmetadata: jsonb('brandmetadata'),
 
 
     metadata: text('metadata'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
 });
 
-
-
 export const organizationRole= pgEnum('organization_role', ['owner','admin', 'member']);
-
 
 export const member = pgTable("member", {
     id: text('id').primaryKey(),
@@ -54,10 +52,7 @@ export const memberRelations = relations(member, ({ one }) => ({
     })
 }));
 
-
-
 export const invitationStatus = pgEnum('invitation_status', ['pending', 'accepted', 'rejected']);
-
 
 export const invitation = pgTable("invitation", {
     id: text('id').primaryKey(),
@@ -68,7 +63,6 @@ export const invitation = pgTable("invitation", {
     status: invitationStatus('status').notNull(),
     expiresAt: timestamp('expires_at').notNull(),
 });
-
 
 export const Orgschema = { organization, member, invitation, organizationRelations, memberRelations };
 export const OrgRelations = { organizationRelations, memberRelations };

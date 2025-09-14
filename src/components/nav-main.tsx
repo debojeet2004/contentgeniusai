@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export function NavMain({
   items,
@@ -44,7 +44,8 @@ export function NavMain({
 }) {
   // check if the url is same as the current url
   const currentUrl = usePathname();
-
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab");
   if (type === "normal") {
     return (
       <SidebarGroup>
@@ -52,12 +53,13 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => {
             const isActive = item.url === currentUrl;
+            const isTabActive = tab === item.url.split("&tab=")[1];
             return (
               <SidebarMenuItem
                 key={item.title}
                 className={
-                  isActive
-                    ? "dark:bg-sidebar-accent bg-purple-200 rounded-md text-sidebar-accent-foreground"
+                  isActive || isTabActive
+                    ? "dark:bg-sidebar-accent bg-stone-200 rounded-md text-sidebar-accent-foreground"
                     : ""
                 }
               >
@@ -70,7 +72,9 @@ export function NavMain({
                   )}
                   // data-umami-event={`dashboard-${item.title}-button`}
                 >
-                  <Link href={item.url}>
+                  <Link href={{
+                    pathname: item.url
+                  }}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                   </Link>
@@ -119,7 +123,9 @@ export function NavMain({
                           asChild
                           // data-umami-event={`dashboard-${item.title}-${subItem.title}-button`}
                         >
-                          <Link href={subItem.url}>
+                          <Link href={{
+                            pathname: subItem.url
+                          }}>
                             <span>{subItem.title}</span>
                           </Link>
                         </SidebarMenuSubButton>

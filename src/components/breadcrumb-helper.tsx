@@ -8,11 +8,15 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface BreadcrumbHelperProps {
   breadcrumbItems: {
     name: string;
-    href: string;
+    href: {
+      pathname: string;
+      query?: { [key: string]: string | string[] | undefined };
+    };
   }[],
   triggerNeeded?: boolean;
 }
@@ -36,7 +40,9 @@ function BreadcrumbHelper({ breadcrumbItems, triggerNeeded = false }: Breadcrumb
                     key={index}
                     data-umami-event={`breadcrumb-${item.name}-button`}
                   >
-                    <BreadcrumbLink href={item.href}>{item.name}</BreadcrumbLink>
+                    <BreadcrumbLink asChild>
+                      <Link href={item.href}>{item.name}</Link>
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                 </Fragment>
               );

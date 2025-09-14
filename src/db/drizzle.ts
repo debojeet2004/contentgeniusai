@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "./schema/index";
 
 config({
-  path: ".env.local",
+  path: ".env",
   // debug: true,
   override: true,
 });
