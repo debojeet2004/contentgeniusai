@@ -13,19 +13,62 @@ import {
 } from "@/components/ui/sidebar";
 import { useSession } from "@/lib/auth-client";
 import { redirect, usePathname, useSearchParams } from "next/navigation";
-import { FileText, Image, InfoIcon, Settings, Settings2 } from "lucide-react";
+import { FileText, Grid, Image, InfoIcon, Settings2, Server } from "lucide-react";  
 
-const dashboardNav = [
+export const dashboardNav = [
+  // --- Content & Creation ---
   {
-    title: "Generate Blogs",
-    url: "/generate-blogs",
+    title: "Blogs",
+    url: "/blogs",
     icon: FileText,
+    items: [
+      {
+        title: "Create Blog",
+        url: "/create-blogs",
+      },
+      {
+        title: "Automate Blogs",
+        url: "/automate-blogs",
+      },
+    ],
   },
   {
-    title: "Setting",
-    url: "/settings",
-    icon: Settings,
+    title: "Media Studio",
+    url: "/posts",
+    icon: Grid,
+    items: [
+      {
+        title: "Generate Posts",
+        url: "/generate-posts",
+      },
+      {
+        title: "Automate Post",
+        url: "/automate-posts",
+      },
+    ],
   },
+  {
+    title: "Prompt Memory",
+    url: "/prompt-memory",
+    icon: Server,
+  },
+  
+  // --- Market research ---
+  // {
+  //   title: "Market Research",
+  //   url: "/research",
+  //   icon: Search,
+  //   items: [
+  //     {
+  //       title: "Competitor Analysis",
+  //       url: "/research/competitors",
+  //     },
+  //     {
+  //       title: "Trend Spotter",
+  //       url: "/research/trends",
+  //     },
+  //   ],
+  // },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -74,7 +117,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <BrandSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={navItems} itemsCategory={Category} type="normal" />
+        <NavMain items={navItems} itemsCategory={Category} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

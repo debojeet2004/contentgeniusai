@@ -1,6 +1,6 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+  import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 
@@ -9,7 +9,7 @@ interface AuthenticationButtonProps {
   provider: string;
 }
 
-export default function SocialAuthButton({
+export default function   SocialAuthButton({
   provider,
 }: AuthenticationButtonProps) {
   // const router = useRouter();

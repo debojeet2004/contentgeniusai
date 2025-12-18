@@ -1,5 +1,3 @@
-// @/app/manage-brands/[brandSlug]/_components/danger-zone.tsx
-
 "use client";
 
 import { useState } from "react";
@@ -18,7 +16,6 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 interface DangerZoneProps {
@@ -35,9 +32,8 @@ export function DangerZone({ brandName, brandId }: DangerZoneProps) {
   const handleSubmit = async ({ brandId }: { brandId: string }) => {
     try {
       setisLoading(true);
-      const { error } = await authClient.organization.delete({
-        organizationId: brandId, // required
-      });
+      const { error } = await authClient.organization.delete({organizationId: brandId});
+      
       if (error) {
         toast.error(error.message);
         return;
